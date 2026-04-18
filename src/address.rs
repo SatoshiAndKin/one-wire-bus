@@ -1,7 +1,5 @@
 use core::fmt::{Error, Formatter};
 
-/// A 64-bit address of a device. These are globally unique, and used to single out a single device on
-/// a potentially crowded bus
 #[derive(Copy, Clone, PartialEq, Eq)]
 pub struct Address(pub u64);
 
