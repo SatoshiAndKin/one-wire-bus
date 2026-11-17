@@ -57,9 +57,7 @@ where
     }
 
     pub fn is_bus_low(&mut self) -> OneWireResult<bool, E> {
-        self.pin
-            .is_low()
-            .map_err(|err| OneWireError::PinError(err))
+        self.pin.is_low().map_err(|err| OneWireError::PinError(err))
     }
 
     fn wait_for_high(&mut self, delay: &mut impl DelayNs) -> OneWireResult<(), E> {
@@ -139,11 +137,7 @@ where
         Ok(())
     }
 
-    pub fn write_bit(
-        &mut self,
-        value: bool,
-        delay: &mut impl DelayNs,
-    ) -> OneWireResult<(), E> {
+    pub fn write_bit(&mut self, value: bool, delay: &mut impl DelayNs) -> OneWireResult<(), E> {
         if value {
             self.write_1_bit(delay)
         } else {
@@ -151,11 +145,7 @@ where
         }
     }
 
-    pub fn write_byte(
-        &mut self,
-        mut value: u8,
-        delay: &mut impl DelayNs,
-    ) -> OneWireResult<(), E> {
+    pub fn write_byte(&mut self, mut value: u8, delay: &mut impl DelayNs) -> OneWireResult<(), E> {
         for _ in 0..8 {
             self.write_bit(value & 0x01 == 0x01, delay)?;
             value >>= 1;
@@ -163,11 +153,7 @@ where
         Ok(())
     }
 
-    pub fn write_bytes(
-        &mut self,
-        bytes: &[u8],
-        delay: &mut impl DelayNs,
-    ) -> OneWireResult<(), E> {
+    pub fn write_bytes(&mut self, bytes: &[u8], delay: &mut impl DelayNs) -> OneWireResult<(), E> {
         for i in 0..bytes.len() {
             self.write_byte(bytes[i], delay)?;
         }
